@@ -4,6 +4,7 @@ from dependency_injector import providers, containers
 from faststream.redis import RedisBroker
 from aiogram.enums import ParseMode
 from aiogram import Bot
+from aiogram.client.default import DefaultBotProperties
 
 
 async def get_redis_broker(dsn: str, *, db: int = 0):
@@ -28,7 +29,7 @@ async def get_redis(broker: RedisBroker):
 
 
 def get_bot(token: str):
-    return Bot(token=token, parse_mode=ParseMode.HTML)
+    return Bot(token=token, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 
 
 class Container(containers.DeclarativeContainer):
