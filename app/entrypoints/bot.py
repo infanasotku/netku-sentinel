@@ -9,7 +9,7 @@ from aiogram.fsm.storage.base import DefaultKeyBuilder
 
 from app.infra.config import settings
 from app.container import Container
-from app.controllers.bot.main import COMMANDS
+from app.controllers.bot.main import COMMANDS, router
 
 
 def create_lifespan(container: Container):
@@ -25,6 +25,10 @@ def create_lifespan(container: Container):
         dp = Dispatcher(
             storage=RedisStorage(redis=redis, key_builder=DefaultKeyBuilder())
         )
+        dp.include_router(router)
+        register_message_processor(
+            app, bot=bot, dispatcher=dp, secret=settings.bot.secret
+        )
 
         await bot.set_webhook(
             url=settings.bot.url,
@@ -33,9 +37,7 @@ def create_lifespan(container: Container):
             drop_pending_updates=True,
         )
         await bot.set_my_commands(COMMANDS)
-        register_message_processor(
-            app, bot=bot, dispatcher=dp, secret=settings.bot.secret
-        )
+
         try:
             yield
         finally:
