@@ -8,7 +8,7 @@ from aiogram.fsm.storage.redis import RedisStorage
 from aiogram.fsm.storage.base import DefaultKeyBuilder
 
 from app.infra.config import settings
-from app.container import Container
+from app.container import Container, BotResource
 from app.controllers.bot.main import COMMANDS, router
 
 
@@ -19,7 +19,7 @@ def create_lifespan(container: Container):
 
     @asynccontextmanager
     async def lifespan(app):
-        await _maybe_future(container.init_resources())
+        await _maybe_future(container.init_resources(BotResource))
         bot = container.bot()
         redis = await container.redis()
         dp = Dispatcher(
@@ -41,7 +41,7 @@ def create_lifespan(container: Container):
         try:
             yield
         finally:
-            await _maybe_future(container.shutdown_resources())
+            await _maybe_future(container.shutdown_resources(BotResource))
 
     return lifespan
 

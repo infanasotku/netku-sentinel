@@ -1,4 +1,4 @@
-from typing import Awaitable
+from typing import Awaitable, TypeVar
 
 from dependency_injector import providers, containers
 from faststream.redis import RedisBroker
@@ -32,10 +32,21 @@ def get_bot(token: str):
     return Bot(token=token, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 
 
+ResourceT = TypeVar("ResourceT")
+
+
+class EventsResource(providers.Resource):
+    pass
+
+
+class BotResource(providers.Resource[ResourceT]):
+    pass
+
+
 class Container(containers.DeclarativeContainer):
     config = providers.Configuration()
 
-    redis_broker = providers.Resource[Awaitable[RedisBroker]](
+    redis_broker = BotResource[Awaitable[RedisBroker]](
         get_redis_broker,  # type: ignore
         config.redis.dsn,
         db=config.redis.db,
