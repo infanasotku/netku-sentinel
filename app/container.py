@@ -9,6 +9,7 @@ from aiogram.client.default import DefaultBotProperties
 
 from app.infra.redis.broker import get_redis, get_redis_broker
 from app.infra.rabbit.broker import get_rabbit_broker
+from app.infra.logging import logger
 
 
 def get_bot(token: str):
@@ -28,6 +29,7 @@ class BotResource(providers.Resource[ResourceT]):
 
 class Container(containers.DeclarativeContainer):
     config = providers.Configuration()
+    logger = providers.Object(logger)
 
     redis_broker = BotResource[Awaitable[RedisBroker]](
         get_redis_broker,  # type: ignore
@@ -45,5 +47,6 @@ class Container(containers.DeclarativeContainer):
     rabbit_broker = EventsResource[Awaitable[RabbitBroker]](
         get_rabbit_broker,  # type: ignore
         config.rabbit.dsn,
-        virtualhost=config.rabbit.virtualhost,
+        virtualhost=config.rabbit_proxy_vhost,
+        logger=logger,
     )
