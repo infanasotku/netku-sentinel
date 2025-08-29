@@ -11,3 +11,5 @@ faststream[redis]==0.5.44
 asyncpg==0.30.0
 sentry-sdk==2.34.1
 aiogram==3.22.0
+prometheus-client==0.22.1
+prometheus_fastapi_instrumentator==7.1.0

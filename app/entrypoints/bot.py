@@ -6,6 +6,7 @@ from aiogram import Bot, Dispatcher
 from aiogram.types import Update
 from aiogram.fsm.storage.redis import RedisStorage
 from aiogram.fsm.storage.base import DefaultKeyBuilder
+from prometheus_fastapi_instrumentator import Instrumentator
 
 from app.infra.config import settings
 from app.container import Container, BotResource
@@ -56,6 +57,8 @@ def create_app():
     )
 
     app = FastAPI(docs_url=None, redoc_url=None, lifespan=create_lifespan(container))
+
+    Instrumentator().instrument(app).expose(app)
 
     return app
 
