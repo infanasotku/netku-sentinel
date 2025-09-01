@@ -83,3 +83,8 @@ def register_message_processor(
 
 
 app = create_app()
+
+
+@app.get("/healthz")
+async def healthz():
+    return {"status": "ok"}
