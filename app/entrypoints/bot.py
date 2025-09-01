@@ -31,12 +31,20 @@ def create_lifespan(container: Container):
             app, bot=bot, dispatcher=dp, secret=settings.bot.secret
         )
 
-        await bot.set_webhook(
-            url=settings.bot.url,
-            secret_token=settings.bot.secret,
-            allowed_updates=dp.resolve_used_update_types(),
-            drop_pending_updates=True,
-        )
+        # Check current webhook before setting a new one to avoid redundant
+        # set_webhook calls from multiple pods starting simultaneously.
+        try:
+            webhook_info = await bot.get_webhook_info()
+        except Exception:
+            webhook_info = None
+
+        if webhook_info is None or webhook_info.url != settings.bot.url:
+            await bot.set_webhook(
+                url=settings.bot.url,
+                secret_token=settings.bot.secret,
+                allowed_updates=dp.resolve_used_update_types(),
+                drop_pending_updates=True,
+            )
         await bot.set_my_commands(COMMANDS)
 
         try:
