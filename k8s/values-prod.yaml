@@ -10,6 +10,6 @@ config:
   RABBIT__USERNAME: "sentinel"
 
 # --- API ---
-api:
+bot:
   ingress:
     host: sentinel.infanasotku.com
