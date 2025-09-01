@@ -45,12 +45,12 @@ spec:
             - name: dev-volume
               subPath: src
               mountPath: /workspace
+      {{- end }}
 
       dnsConfig:
         options:
           - name: ndots
             value: "1"
-      {{- end }}
 
       containers:
         - name: {{ .Values.bot.container.name }}
