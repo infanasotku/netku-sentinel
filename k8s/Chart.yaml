@@ -1,0 +1,5 @@
+apiVersion: v2
+name: netku-sentinel
+sources:
+  - https://github.com/infanasotku/netku-sentinel
+version: 0.1.0
