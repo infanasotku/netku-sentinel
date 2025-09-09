@@ -10,6 +10,7 @@ from aiogram.client.default import DefaultBotProperties
 from app.infra.redis.broker import get_redis, get_redis_broker
 from app.infra.rabbit.broker import get_rabbit_broker
 from app.infra.logging import logger
+from app.services.engine import EngineEventService
 
 
 def get_bot(token: str):
@@ -49,4 +50,8 @@ class Container(containers.DeclarativeContainer):
         config.rabbit.dsn,
         virtualhost=config.rabbit_proxy_vhost,
         logger=logger,
+    )
+
+    engine = providers.Factory(
+        EngineEventService,
     )
