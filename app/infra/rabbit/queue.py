@@ -4,3 +4,5 @@ proxy_engine_queue = RabbitQueue(
     name="proxy_engine_queue",
     passive=True,
 )
+
+MAX_RETRY = 2
