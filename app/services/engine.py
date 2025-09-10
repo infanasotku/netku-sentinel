@@ -1,7 +1,11 @@
+from app.infra.database.uow import PgEngineUnitOfWork
 from app.schemas.engine import EngineDeadCmd, EngineRestoredCmd, EngineUpdatedCmd
 
 
 class EngineEventService:
+    def __init__(self, uow: PgEngineUnitOfWork) -> None:
+        self.uow = uow
+
     async def on_updated(self, cmd: EngineUpdatedCmd):
         pass
 
