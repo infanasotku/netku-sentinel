@@ -2,8 +2,9 @@ import logging
 import logging.config
 import pathlib
 import re
-import yaml
+
 from uvicorn.logging import DefaultFormatter
+import yaml
 
 
 class LogFormatter(DefaultFormatter):

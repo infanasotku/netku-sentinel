@@ -1,8 +1,8 @@
 from logging import Logger
 from typing import Any
 
-from faststream.rabbit import RabbitRouter, RabbitMessage
 from dependency_injector.wiring import Provide, inject
+from faststream.rabbit import RabbitMessage, RabbitRouter
 
 from app.container import Container
 from app.infra.rabbit.queue import MAX_RETRY, proxy_engine_queue

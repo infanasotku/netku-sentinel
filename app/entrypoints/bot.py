@@ -1,16 +1,16 @@
 from contextlib import asynccontextmanager
 from typing import Annotated
 
-from fastapi import FastAPI, Header
 from aiogram import Bot, Dispatcher
-from aiogram.types import Update
-from aiogram.fsm.storage.redis import RedisStorage
 from aiogram.fsm.storage.base import DefaultKeyBuilder
+from aiogram.fsm.storage.redis import RedisStorage
+from aiogram.types import Update
+from fastapi import FastAPI, Header
 from prometheus_fastapi_instrumentator import Instrumentator
 
-from app.infra.config import settings
-from app.container import Container, BotResource
+from app.container import BotResource, Container
 from app.controllers.bot.main import COMMANDS, router
+from app.infra.config import settings
 
 
 def create_lifespan(container: Container):
