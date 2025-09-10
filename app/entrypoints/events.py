@@ -1,11 +1,12 @@
 from contextlib import asynccontextmanager
 
-from faststream.asgi import make_ping_asgi, AsgiFastStream, AsgiResponse, get
+from faststream.asgi import AsgiFastStream, AsgiResponse, get, make_ping_asgi
 
-from app.infra.config import settings
-from app.infra.logging import logger
 from app.container import Container, EventsResource
 from app.controllers.events import engine
+from app.infra.config import settings
+from app.infra.logging import logger
+from app.infra.tracing.sentry import init_sentry
 
 
 def create_lifespan(container: Container, app: AsgiFastStream):
@@ -43,6 +44,8 @@ def create_app():
             "app.controllers.events.engine",
         ]
     )
+
+    init_sentry()
 
     app = AsgiFastStream(
         None,
