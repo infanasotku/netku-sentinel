@@ -1,7 +1,7 @@
 from contextlib import asynccontextmanager
 
 from sentry_sdk import start_span
-from sqlalchemy.ext.asyncio import async_sessionmaker, AsyncSession
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from app.infra.database.repositories.inbox import PgInboxRepository
 
