@@ -5,7 +5,6 @@ exclude = ["gen"]
 [tool.ruff.lint.isort]
 force-sort-within-sections = true
 #
-known-first-party = ["your_project"]
 combine-as-imports = true
 
 [tool.pytest.ini_options]
