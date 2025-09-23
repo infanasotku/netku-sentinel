@@ -14,7 +14,7 @@ from app.infra.logging import logger
 from app.infra.rabbit.broker import get_publisher, get_rabbit_broker
 from app.infra.rabbit.queue import sentinel_dead_letter_queue
 from app.infra.redis.broker import get_redis, get_redis_broker
-from app.services.engine import EngineEventService
+from app.services.engine import EngineService
 
 
 def get_bot(token: str):
@@ -74,6 +74,6 @@ class Container(containers.DeclarativeContainer):
     engine_uow = providers.Factory(PgEngineUnitOfWork, async_sessionmaker)
 
     engine = providers.Factory(
-        EngineEventService,
+        EngineService,
         engine_uow,
     )

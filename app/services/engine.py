@@ -2,7 +2,7 @@ from app.infra.database.uow import PgEngineUnitOfWork
 from app.schemas.engine import EngineDeadCmd, EngineRestoredCmd, EngineUpdatedCmd
 
 
-class EngineEventService:
+class EngineService:
     def __init__(self, uow: PgEngineUnitOfWork) -> None:
         self.uow = uow
 

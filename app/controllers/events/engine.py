@@ -9,7 +9,7 @@ from app.container import Container
 from app.infra.rabbit.queue import MAX_RETRY, proxy_engine_queue
 from app.schemas.engine import EngineDeadCmd, EngineRestoredCmd, EngineUpdatedCmd
 from app.schemas.event import BaseEvent
-from app.services.engine import EngineEventService
+from app.services.engine import EngineService
 
 router = RabbitRouter()
 
@@ -65,7 +65,7 @@ async def handle_engine_events(event: EngineEvent, msg: RabbitMessage):
 @inject
 async def _handle(
     event: EngineEvent,
-    svc: EngineEventService = Provide[Container.engine],
+    svc: EngineService = Provide[Container.engine],
 ):
     match event.event_type:
         case "EngineDead":
