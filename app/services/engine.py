@@ -7,7 +7,9 @@ class EngineEventService:
         self.uow = uow
 
     async def on_updated(self, cmd: EngineUpdatedCmd):
-        pass
+        async with self.uow.begin() as uow:
+            if not await uow.inbox.try_record(cmd.id):
+                return
 
     async def on_dead(self, cmd: EngineDeadCmd):
         pass

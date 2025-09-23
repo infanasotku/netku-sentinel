@@ -3,6 +3,7 @@ from typing import Any
 
 from dependency_injector.wiring import Provide, inject
 from faststream.rabbit import RabbitMessage, RabbitRouter
+from faststream.rabbit.publisher.asyncapi import AsyncAPIPublisher
 
 from app.container import Container
 from app.infra.rabbit.queue import MAX_RETRY, proxy_engine_queue
@@ -23,10 +24,10 @@ def _get_logger(logger: Logger = Provide[Container.logger]):
 
 
 @inject
-async def _get_event_service(
-    event_service: EngineEventService = Provide[Container.engine],
+async def _get_dlq_publisher(
+    publisher: AsyncAPIPublisher = Provide[Container.dlq_publisher],
 ):
-    return event_service
+    return publisher
 
 
 def _retry_count(headers: dict[str, Any], retry_queue: str) -> int:
@@ -46,6 +47,11 @@ async def handle_engine_events(event: EngineEvent, msg: RabbitMessage):
         logger.warning(
             f"Event [{event.event_type}-{event.id}] exceeded max retry limit"
         )
+        publisher = await _get_dlq_publisher()
+        try:
+            await publisher.publish(event)
+        except Exception:
+            pass  # Want to ack message anyway
         # Automatic ack
     else:
         await _handle(event)

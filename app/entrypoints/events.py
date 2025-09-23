@@ -6,6 +6,7 @@ from app.container import Container, EventsResource
 from app.controllers.events import engine
 from app.infra.config import settings
 from app.infra.logging import logger
+from app.infra.rabbit.queue import sentinel_dead_letter_queue
 from app.infra.tracing.sentry import init_sentry
 
 
@@ -28,6 +29,7 @@ def create_lifespan(container: Container, app: AsgiFastStream):
         app.broker = engine_broker
 
         await _maybe_future(container.init_resources(EventsResource))
+        await engine_broker.declare_queue(sentinel_dead_letter_queue)
         try:
             yield
         finally:
