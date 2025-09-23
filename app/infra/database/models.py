@@ -10,11 +10,14 @@ uuidpk = Annotated[
 ]
 
 
-class Base(DeclarativeBase):
+class Base(DeclarativeBase): ...
+
+
+class BaseWithPK(DeclarativeBase):
     id: Mapped[uuidpk]
 
 
-class Inbox(DeclarativeBase):
+class Inbox(Base):
     __tablename__ = "inbox"
 
     message_id: Mapped[uuidpk] = mapped_column()
