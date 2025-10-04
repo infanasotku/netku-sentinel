@@ -13,14 +13,24 @@ uuidpk = Annotated[
 class Base(DeclarativeBase): ...
 
 
-class BaseWithPK(DeclarativeBase):
+class BaseWithPK(Base):
+    __abstract__ = True
+
     id: Mapped[uuidpk]
 
 
 class Inbox(Base):
     __tablename__ = "inbox"
 
-    message_id: Mapped[uuidpk] = mapped_column()
+    message_id: Mapped[uuidpk]
     received_at: Mapped[datetime] = mapped_column(
         default=lambda: datetime.now(timezone.utc),
     )
+
+
+class Subscriber(BaseWithPK):
+    __tablename__ = "subscribers"
+
+    username: Mapped[str]
+    email: Mapped[str]
+    description: Mapped[str] = mapped_column(nullable=True)
