@@ -1,6 +1,10 @@
 [tool.ruff]
 target-version = "py311"
 exclude = ["gen"]
+fix = true
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
 
 [tool.ruff.lint.isort]
 force-sort-within-sections = true
