@@ -23,6 +23,7 @@ def upgrade() -> None:
         "subscribers",
         sa.Column("username", sa.String(), nullable=False),
         sa.Column("email", sa.String(), nullable=False),
+        sa.Column("phone", sa.String(), nullable=False),
         sa.Column("description", sa.String(), nullable=True),
         sa.Column("id", sa.UUID(), nullable=False),
         sa.PrimaryKeyConstraint("id"),

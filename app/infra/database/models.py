@@ -33,4 +33,5 @@ class Subscriber(BaseWithPK):
 
     username: Mapped[str]
     email: Mapped[str]
+    phone: Mapped[str]
     description: Mapped[str] = mapped_column(nullable=True)
