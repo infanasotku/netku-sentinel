@@ -18,6 +18,7 @@ jobs:
     needs: load-pr
     if: |
       contains(fromJson(needs.load-pr.outputs.pr_data).labels.*.name, 'events') ||
+      contains(fromJson(needs.load-pr.outputs.pr_data).labels.*.name, 'admin') ||
       contains(fromJson(needs.load-pr.outputs.pr_data).labels.*.name, 'bot')
 
     steps:

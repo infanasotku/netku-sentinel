@@ -20,6 +20,7 @@ jobs:
     environment: staging-deploy
     if: |
       contains(fromJson(needs.load-pr.outputs.pr_data).labels.*.name, 'events') ||
+      contains(fromJson(needs.load-pr.outputs.pr_data).labels.*.name, 'admin') ||
       contains(fromJson(needs.load-pr.outputs.pr_data).labels.*.name, 'bot')
 
     steps:
