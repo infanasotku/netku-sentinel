@@ -17,3 +17,14 @@ spec:
             name: {{ .Values.bot.container.name }}-{{ .Values.environment }}-service
             port:
               number: {{ .Values.bot.container.port }}
+
+  - host: {{ .Values.admin.ingress.host }}
+    http:
+      paths:
+      - path: {{ .Values.admin.ingress.path }}
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Values.admin.container.name }}-{{ .Values.environment }}-service
+            port:
+              number: {{ .Values.admin.container.port }}
