@@ -4,8 +4,8 @@ from sqladmin import Admin
 from sqlalchemy.ext.asyncio import AsyncEngine
 
 from app.container import Container
+from app.controllers.admin import views
 from app.controllers.admin.auth import AdminAuthenticationBackend
-from app.controllers.admin.views import SubscriberView
 
 
 @inject
@@ -28,4 +28,5 @@ def register_admin(
         base_url="/",
     )
 
-    admin.add_view(SubscriberView)
+    admin.add_view(views.SubscriberView)
+    admin.add_view(views.EngineSubscriptionView)
