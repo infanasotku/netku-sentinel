@@ -4,7 +4,7 @@ from uuid import UUID, uuid4
 
 from sqlalchemy import ForeignKey
 from sqlalchemy.dialects.postgresql import UUID as SQLUUID
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 uuidpk = Annotated[
     UUID, mapped_column(SQLUUID(as_uuid=True), primary_key=True, default=uuid4)
@@ -37,11 +37,19 @@ class Subscriber(BaseWithPK):
     phone: Mapped[str]
     description: Mapped[str] = mapped_column(nullable=True)
 
+    engine_subscriptions: Mapped[list["EngineSubscription"]] = relationship(
+        "EngineSubscription", cascade="all, delete"
+    )
+
 
 class EngineSubscription(BaseWithPK):
     __tablename__ = "engine_subscriptions"
 
     subscriber_id: Mapped[uuidpk] = mapped_column(ForeignKey("subscribers.id"))
+    subscriber: Mapped[Subscriber] = relationship(
+        Subscriber, back_populates="engine_subscriptions"
+    )
+
     channel: Mapped[str]  # telegram
     endpoint: Mapped[str] = mapped_column(nullable=True)  # chat_id for telegram
     active: Mapped[bool] = mapped_column(default=True)
