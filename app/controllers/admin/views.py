@@ -49,6 +49,7 @@ class EngineSubscriptionView(ModelView, model=models.EngineSubscription):
     form_args = dict(
         channel=_enum_form_args(SubscriptionChannel),
         event_type=_enum_form_args(EngineEventType),
+        subscriber=dict(validators=[wtforms.validators.InputRequired()]),
     )
     form_overrides = dict(channel=wtforms.SelectField, event_type=wtforms.SelectField)
     form_columns = []

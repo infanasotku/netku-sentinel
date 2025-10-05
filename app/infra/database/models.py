@@ -41,6 +41,9 @@ class Subscriber(BaseWithPK):
         "EngineSubscription", cascade="all, delete"
     )
 
+    def __str__(self) -> str:
+        return f"{self.username} [{self.email}]"
+
 
 class EngineSubscription(BaseWithPK):
     __tablename__ = "engine_subscriptions"
