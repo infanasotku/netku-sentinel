@@ -46,3 +46,19 @@ events:
       "5101",
       "--reload"
     ]
+
+# --- ADMIN ---
+admin:
+  replicas: 1
+  container:
+    args:
+      [
+        "app.entrypoints.admin:app",
+        "--workers",
+        "1",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "5102",
+        "--reload"
+      ]

@@ -14,3 +14,8 @@ config:
 bot:
   ingress:
     host: test.sentinel.infanasotku.com
+
+# --- ADMIN ---
+admin:
+  ingress:
+    host: admin.test.sentinel.infanasotku.com

@@ -58,7 +58,7 @@ events:
 # --- ADMIN ---
 admin:
   version: "0.1.0"
-  replicas: 2
+  replicas: 1
   container:
     name: netku-sentinel-admin
     port: 5100
