@@ -58,3 +58,6 @@ class EngineSubscription(BaseWithPK):
     active: Mapped[bool] = mapped_column(default=True)
     event_type: Mapped[str]
     engine_host: Mapped[str]
+
+    def __str__(self) -> str:
+        return f"{self.channel} [{self.event_type}]"
