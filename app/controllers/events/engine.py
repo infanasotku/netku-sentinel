@@ -57,7 +57,10 @@ async def handle_engine_events(event: EngineEvent, msg: RabbitMessage):
         await _handle(event)
 
     logger.info(
-        f"Processed event [{event.event_type}] for engine [{event.aggregate_id}] event_id [{event.id}]",
+        (
+            f"Processed event [{event.event_type}] for"
+            f"engine [{event.aggregate_id}] event_id [{event.id}]"
+        ),
         extra=dict(queue=proxy_engine_queue.name),
     )
 
