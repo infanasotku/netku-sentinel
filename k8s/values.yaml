@@ -61,7 +61,7 @@ admin:
   replicas: 1
   container:
     name: netku-sentinel-admin
-    port: 5100
+    port: 5102
     args:
       [
         "app.entrypoints.admin:app",
