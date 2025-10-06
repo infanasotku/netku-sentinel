@@ -1,13 +1,11 @@
 from contextlib import asynccontextmanager
 
-from faststream.asgi import AsgiFastStream, AsgiResponse, get, make_ping_asgi
+from faststream.asgi import make_ping_asgi, AsgiFastStream, AsgiResponse, get
 
-from app.container import Container, EventsResource
-from app.controllers.events import engine
 from app.infra.config import settings
 from app.infra.logging import logger
-from app.infra.rabbit.queue import sentinel_dead_letter_queue
-from app.infra.tracing.sentry import init_sentry
+from app.container import Container, EventsResource
+from app.controllers.events import engine
 
 
 def create_lifespan(container: Container, app: AsgiFastStream):
@@ -29,7 +27,6 @@ def create_lifespan(container: Container, app: AsgiFastStream):
         app.broker = engine_broker
 
         await _maybe_future(container.init_resources(EventsResource))
-        await engine_broker.declare_queue(sentinel_dead_letter_queue)
         try:
             yield
         finally:
@@ -46,8 +43,6 @@ def create_app():
             "app.controllers.events.engine",
         ]
     )
-
-    init_sentry()
 
     app = AsgiFastStream(
         None,
