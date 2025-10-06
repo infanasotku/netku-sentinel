@@ -71,6 +71,4 @@ jobs:
             helm upgrade --install netku-sentinel-test -f k8s/values-test.yaml \
             --set container.tag=test --namespace netku-test k8s \
             && rm k8s/temp-secrets.yaml
-
-            git checkout main
           EOF
