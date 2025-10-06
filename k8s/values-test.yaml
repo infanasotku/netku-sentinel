@@ -8,7 +8,7 @@ config:
   REDIS__PORT: "6382"
   RABBIT_PROXY_VHOST: "/test/proxy"
   RABBIT__USERNAME: "test"
-  BOT__URL: "https://test.sentinel.infanasotku.com/process_message"
+  BOT__URL: "https://sentinel.test.infanasotku.com/process_message"
 
 # --- API ---
 bot:
