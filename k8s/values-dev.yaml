@@ -17,7 +17,7 @@ config:
 bot:
   replicas: 1
   ingress:
-    host: dev.sentinel.infanasotku.com
+    host: sentinel.dev.infanasotku.com
   container:
     args:
       [
@@ -50,6 +50,8 @@ events:
 # --- ADMIN ---
 admin:
   replicas: 1
+  ingress:
+    host: admin.sentinel.dev.infanasotku.com
   container:
     args:
       [

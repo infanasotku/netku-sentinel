@@ -13,9 +13,9 @@ config:
 # --- API ---
 bot:
   ingress:
-    host: test.sentinel.infanasotku.com
+    host: sentinel.test.infanasotku.com
 
 # --- ADMIN ---
 admin:
   ingress:
-    host: admin.test.sentinel.infanasotku.com
+    host: admin.sentinel.test.infanasotku.com
