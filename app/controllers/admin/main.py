@@ -25,7 +25,7 @@ def register_admin(
         engine,
         title="Engine panel",
         authentication_backend=authentication_backend,
-        base_url="/",
+        base_url="/admin",
     )
 
     admin.add_view(views.SubscriberView)
