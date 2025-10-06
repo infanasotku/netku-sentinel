@@ -1,6 +1,6 @@
-environment: staging
+environment: test
 container:
-  tag: staging
+  tag: test
 
 config:
   POSTGRES__DB_NAME: netku_debug
@@ -14,3 +14,8 @@ config:
 bot:
   ingress:
     host: test.sentinel.infanasotku.com
+
+# --- ADMIN ---
+admin:
+  ingress:
+    host: admin.test.sentinel.infanasotku.com

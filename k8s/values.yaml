@@ -17,25 +17,25 @@ config:
   BOT__URL: "https://sentinel.infanasotku.com/process_message"
 
 # --- BOT ---
-bot:
-  version: "0.1.0"
-  replicas: 2
-  container:
-    name: netku-sentinel-bot
-    port: 5100
-    args:
-      [
-        "app.entrypoints.bot:app",
-        "--workers",
-        "1",
-        "--host",
-        "0.0.0.0",
-        "--port",
-        "5100",
-      ]
-  ingress:
-    host: sentinel.infanasotku.com
-    path: /
+  bot:
+    version: "0.1.0"
+    replicas: 2
+    container:
+      name: netku-sentinel-bot
+      port: 5100
+      args:
+        [
+          "app.entrypoints.bot:app",
+          "--workers",
+          "1",
+          "--host",
+          "0.0.0.0",
+          "--port",
+          "5100",
+        ]
+    ingress:
+      host: sentinel.infanasotku.com
+      path: /
 
 # --- EVENTS ---
 events:
@@ -47,10 +47,31 @@ events:
     args:
       [
         "app.entrypoints.events:app",
-      "--workers",
-      "1",
-      "--host",
-      "0.0.0.0",
-      "--port",
-      "5101",
-    ]
+        "--workers",
+        "1",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "5101",
+      ]
+
+# --- ADMIN ---
+admin:
+  version: "0.1.0"
+  replicas: 1
+  container:
+    name: netku-sentinel-admin
+    port: 5100
+    args:
+      [
+        "app.entrypoints.admin:app",
+        "--workers",
+        "1",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "5102",
+      ]
+  ingress:
+    host: admin.sentinel.infanasotku.com
+    path: /
