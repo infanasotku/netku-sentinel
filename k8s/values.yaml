@@ -47,31 +47,10 @@ events:
     args:
       [
         "app.entrypoints.events:app",
-        "--workers",
-        "1",
-        "--host",
-        "0.0.0.0",
-        "--port",
-        "5101",
-      ]
-
-# --- ADMIN ---
-admin:
-  version: "0.2.0"
-  replicas: 1
-  container:
-    name: netku-sentinel-admin
-    port: 5102
-    args:
-      [
-        "app.entrypoints.admin:app",
-        "--workers",
-        "1",
-        "--host",
-        "0.0.0.0",
-        "--port",
-        "5102",
-      ]
-  ingress:
-    host: admin.sentinel.infanasotku.com
-    path: /
+      "--workers",
+      "1",
+      "--host",
+      "0.0.0.0",
+      "--port",
+      "5101",
+    ]

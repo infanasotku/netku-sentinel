@@ -1,6 +1,6 @@
-from aiogram import Router
-from aiogram.filters import Command
 from aiogram.types import BotCommand, Message
+from aiogram.filters import Command
+from aiogram import Router
 
 COMMANDS = [BotCommand(command="start", description="Запускает бота")]
 router = Router(name="main")

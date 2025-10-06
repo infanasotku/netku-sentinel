@@ -1,8 +1,7 @@
 from logging import Logger
-import traceback
 from typing import Callable
-
-from app.infra.logging.logger import config, logger
+import traceback
+from app.infra.logging.logger import logger, config
 
 __all__ = ["logger", "config"]
 

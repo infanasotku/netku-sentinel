@@ -13,5 +13,3 @@ sentry-sdk==2.34.1
 aiogram==3.22.0
 prometheus-client==0.22.1
 prometheus_fastapi_instrumentator==7.1.0
-sqladmin==0.21.0
-itsdangerous==2.2.0
