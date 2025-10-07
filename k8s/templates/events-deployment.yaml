@@ -26,27 +26,6 @@ spec:
         runAsNonRoot: {{ .Values.securityContext.runAsNonRoot }}
         runAsUser: {{ .Values.securityContext.runAsUser }}
 
-      {{/* ---------- DEV-ONLY ---------- */}}
-      {{- if eq .Values.environment "dev" }}
-      volumes:
-      - name: dev-volume
-        emptyDir: {}
-
-      initContainers:
-        - name: seed-code
-          image: {{ .Values.container.image }}:{{ .Values.container.tag }}
-          command: ["/bin/sh", "-c"]
-          args:
-            - |
-              set -e
-              echo "▶ seeding code into volume"
-              cp -a /app/. /workspace/
-          volumeMounts:
-            - name: dev-volume
-              subPath: src
-              mountPath: /workspace
-      {{- end }}
-
       dnsConfig:
         options:
           - name: ndots
@@ -68,7 +47,6 @@ spec:
             - secretRef:
                 name: {{ .Values.name }}-secrets
 
-          {{- if ne .Values.environment "dev" }}
           livenessProbe:
             httpGet:
               path: /livez
@@ -84,7 +62,6 @@ spec:
             initialDelaySeconds: 10
             periodSeconds: 10
             timeoutSeconds: 5
-          {{- end }}
 
           resources:
             requests:
@@ -97,17 +74,6 @@ spec:
           securityContext:
             capabilities:
               drop: ["ALL"]
-
-          {{/* ---------- DEV-ONLY ---------- */}}
-          {{- if eq .Values.environment "dev" }}
-          volumeMounts:
-          - mountPath: /app
-            name: dev-volume
-            subPath: src
-          - mountPath: /root/.local
-            name: dev-volume
-            subPath: site
-          {{- end }}
 
       imagePullSecrets:
         - name: regcred
