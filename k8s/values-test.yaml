@@ -12,6 +12,7 @@ config:
 
 # --- API ---
 bot:
+  replicas: 1
   ingress:
     host: sentinel.test.infanasotku.com
 
