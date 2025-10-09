@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: migrate-{{ .Values.environment }}
+spec:
+  template:
+    spec:
+      containers:
+      - name: migrate-{{ .Values.environment }}
+        image: {{ .Values.container.image }}:{{ .Values.container.tag }}
+        command: ["alembic", "upgrade", "head"]
+
+        envFrom:
+          - configMapRef:
+              name: {{ .Values.name }}-config
+
+      restartPolicy: Never
+  backoffLimit: 3
